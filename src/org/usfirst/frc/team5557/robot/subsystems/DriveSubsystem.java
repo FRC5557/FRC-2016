@@ -64,6 +64,8 @@ public class DriveSubsystem extends Subsystem {
 		SmartDashboard.putNumber("X-Joy", x);
 		SmartDashboard.putNumber("Y-Joy", y);
 		SmartDashboard.putNumber("Z-Joy", z);
+		
+		SmartDashboard.putNumber("Encoder", sensorTalon().getPulseWidthPosition());
 	}
 
 	public void setCalibration(double x, double y, double z) {
