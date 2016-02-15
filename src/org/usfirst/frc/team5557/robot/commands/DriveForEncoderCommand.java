@@ -7,12 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class JoystickDriveCommand extends Command {
+public class DriveForEncoderCommand extends Command {
 
-	public JoystickDriveCommand() {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
+	private int encoderPosition;
+	private double magnitude;
+	private double direction;
+
+	public DriveForEncoderCommand(int encoderPosition, double magnitude, double direction) {
 		requires(Robot.drive);
+		this.encoderPosition = encoderPosition;
+		this.magnitude = magnitude;
+		this.direction = direction;
 	}
 
 	// Called just before this Command runs the first time
@@ -21,11 +26,14 @@ public class JoystickDriveCommand extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drive.drive();
+		Robot.drive.manualDrive(magnitude, direction);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		if (Robot.drive.sensorTalon().getPulseWidthPosition() >= encoderPosition) {
+			return true;
+		}
 		return false;
 	}
 

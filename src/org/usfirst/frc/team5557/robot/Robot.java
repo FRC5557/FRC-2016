@@ -1,16 +1,17 @@
 
 package org.usfirst.frc.team5557.robot;
 
+import org.usfirst.frc.team5557.robot.commands.AutonomousGroup;
+import org.usfirst.frc.team5557.robot.commands.CalibrateCommand;
+import org.usfirst.frc.team5557.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team5557.robot.subsystems.IntakeSubsystem;
+import org.usfirst.frc.team5557.robot.subsystems.ShooterSubsystem;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
-import org.usfirst.frc.team5557.robot.commands.Calibrate;
-import org.usfirst.frc.team5557.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,49 +22,51 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public static final Calibrate calibrate = new Calibrate();
+	public static final DriveSubsystem drive = new DriveSubsystem();
+	public static final ShooterSubsystem shooter = new ShooterSubsystem();
+	public static final IntakeSubsystem intake = new IntakeSubsystem();
+	public static final CalibrateCommand calibrateCommand = new CalibrateCommand();
 	public static OI oi;
 
-    Command autonomousCommand;
-    SendableChooser chooser;
+	Command autonomousCommand;
+	SendableChooser chooser;
 
-    public void robotInit() {
+	public void robotInit() {
 		oi = new OI();
-        chooser = new SendableChooser();
-    }
-	
-    public void teleopInit() {    	
-        if (autonomousCommand != null) autonomousCommand.cancel();
-        calibrate.execute();
-    }
 
-    public void teleopPeriodic() {
-        Scheduler.getInstance().run();
-        driveSubsystem.drive();
-    }
-    
-    
-    
-    
-    public void disabledInit(){
-    }
-	
+		chooser = new SendableChooser();
+		chooser.addDefault("Forward 3s", new AutonomousGroup());
+		// SmartDashboard.putData("Autonomous", chooser);
+		autonomousCommand = new AutonomousGroup();
+	}
+
+	public void teleopInit() {
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
+		calibrateCommand.execute();
+	}
+
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
+	public void disabledInit() {
+	}
+
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-    public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
-        
-        if (autonomousCommand != null) autonomousCommand.start();
-    }
+	public void autonomousInit() {
+		autonomousCommand = (Command) chooser.getSelected();
+		autonomousCommand.start();
+	}
 
-    public void autonomousPeriodic() {
-        Scheduler.getInstance().run();
-    }
-    
-    public void testPeriodic() {
-        LiveWindow.run();
-    }
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+	}
+
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
 }
