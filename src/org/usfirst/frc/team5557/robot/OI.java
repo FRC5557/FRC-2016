@@ -30,20 +30,18 @@ public class OI {
 	 * fire as fast as possible
 	 */
 
-	public static Button button5 = new JoystickButton(stick, 5); // for intake
-	public static Button button2 = new JoystickButton(stick, 2); // for
-																	// calibration
-	public static Button button3 = new JoystickButton(stick, 3); // for forward
-																	// intake
-	public static Button button1 = new JoystickButton(stick, 1); // triggers shoot command
-	public static Button button7 = new JoystickButton(stick, 7); // ignore
+	public static Button button5 = new JoystickButton(stick, 5);
+	public static Button button2 = new JoystickButton(stick, 2);
+	public static Button button3 = new JoystickButton(stick, 3);
+	public static Button button1 = new JoystickButton(stick, 1);
+	public static Button button11 = new JoystickButton(stick, 11);
 
 	public OI() {
-		button5.whileHeld(new IntakeCommand(true)); // out
-		button2.whileHeld(new CalibrateCommand());
-		button3.whileHeld(new IntakeCommand(false)); // in
-		button1.whenPressed(new KowabungaCommand());
-
+		button3.whileHeld(new IntakeCommand(true)); // out
+		button5.whenPressed(new CalibrateCommand()); // calibrate
+		button2.whileHeld(new IntakeCommand(false)); // in
+		button1.whenPressed(new KowabungaCommand()); //shoot
+		button11.whileHeld(new ShooterMotorsCommand()); // spin shooter
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,
@@ -66,8 +64,3 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 }
-
-/*
- * button7.whileHeld(new SpinShooterMotorsCommand()); button7.whileHeld(new
- * IntakeCommand(false));
- */
