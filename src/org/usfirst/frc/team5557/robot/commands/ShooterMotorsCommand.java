@@ -7,11 +7,21 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinShooterMotorsCommand extends Command {
+public class ShooterMotorsCommand extends Command {
+	
+	private long finishTime;
+	private boolean timed;
 
-	public SpinShooterMotorsCommand() {
+	public ShooterMotorsCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.shooter);
+		timed = false;
+	}
+	
+	public ShooterMotorsCommand(long duration) {
+		requires(Robot.shooter);
+		timed = true;
+		finishTime = System.currentTimeMillis() + duration;
 	}
 
 	// Called just before this Command runs the first time
@@ -25,6 +35,9 @@ public class SpinShooterMotorsCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		if(timed && System.currentTimeMillis() >= finishTime) {
+			return true;
+		}
 		return false;
 	}
 

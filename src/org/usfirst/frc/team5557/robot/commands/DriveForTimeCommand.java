@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveForTimeCommand extends Command {
 
-	private long duration;
 	private double magnitude;
 	private double direction;
-	private long startTime;
+	private long finishTime;
 
-	public DriveForTimeCommand(long time, double magnitude, double direction) {
+	public DriveForTimeCommand(long duration, double magnitude, double direction) {
 		requires(Robot.drive);
-		duration = time;
-		startTime = System.currentTimeMillis();
+		finishTime = System.currentTimeMillis() + duration;
 		this.magnitude = magnitude;
 		this.direction = direction;
 	}
@@ -33,7 +31,7 @@ public class DriveForTimeCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (System.currentTimeMillis() >= (startTime + duration)) {
+		if (System.currentTimeMillis() >= finishTime) {
 			return true;
 		}
 		return false;
@@ -42,8 +40,6 @@ public class DriveForTimeCommand extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		Robot.drive.stop();
-		startTime = System.currentTimeMillis();
-
 	}
 
 	// Called when another command which requires one or more of the same

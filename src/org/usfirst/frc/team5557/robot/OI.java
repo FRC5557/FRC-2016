@@ -2,7 +2,7 @@ package org.usfirst.frc.team5557.robot;
 
 import org.usfirst.frc.team5557.robot.commands.CalibrateCommand;
 import org.usfirst.frc.team5557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team5557.robot.commands.SpinShooterMotorsCommand;
+import org.usfirst.frc.team5557.robot.commands.ShooterMotorsCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -47,7 +47,7 @@ public class OI {
 		button5.whileHeld(new IntakeCommand(true)); // out
 		button2.whileHeld(new CalibrateCommand());
 		button3.whileHeld(new IntakeCommand(false)); // in
-		button1.whileHeld(new SpinShooterMotorsCommand());
+		button1.whileHeld(new ShooterMotorsCommand());
 
 	}
 
