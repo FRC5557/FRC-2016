@@ -45,7 +45,7 @@ public class DriveSubsystem extends Subsystem {
 		double z = OI.stick.getTwist() - zCalib; // reads z on joystick and sets
 													// to "z"
 
-		drive.arcadeDrive(y, x, true); // the actual code causing the driving of
+		drive.arcadeDrive(y, z, true); // the actual code causing the driving of
 										// the robot
 
 		// accel currently NOT IN USE for robot
