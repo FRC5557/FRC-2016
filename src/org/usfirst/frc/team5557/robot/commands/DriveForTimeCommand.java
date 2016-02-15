@@ -11,17 +11,18 @@ public class DriveForTimeCommand extends Command {
 
 	private double magnitude;
 	private double direction;
-	private long finishTime;
+	private double duration;
 
-	public DriveForTimeCommand(long duration, double magnitude, double direction) {
+	public DriveForTimeCommand(double duration, double magnitude, double direction) {
 		requires(Robot.drive);
-		finishTime = System.currentTimeMillis() + duration;
+		this.duration = duration;
 		this.magnitude = magnitude;
 		this.direction = direction;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		setTimeout(duration);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,10 +32,7 @@ public class DriveForTimeCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (System.currentTimeMillis() >= finishTime) {
-			return true;
-		}
-		return false;
+		return isTimedOut();
 	}
 
 	// Called once after isFinished returns true

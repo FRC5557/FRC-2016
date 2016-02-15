@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShooterMotorsCommand extends Command {
 	
-	private long finishTime;
+	private double duration;
 	private boolean timed;
 
 	public ShooterMotorsCommand() {
@@ -18,14 +18,17 @@ public class ShooterMotorsCommand extends Command {
 		timed = false;
 	}
 	
-	public ShooterMotorsCommand(long duration) {
+	public ShooterMotorsCommand(double duration) {
 		requires(Robot.shooter);
 		timed = true;
-		finishTime = System.currentTimeMillis() + duration;
+		this.duration = duration;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		if(timed) {
+			setTimeout(duration);
+		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -35,8 +38,8 @@ public class ShooterMotorsCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(timed && System.currentTimeMillis() >= finishTime) {
-			return true;
+		if(timed) {
+			return isTimedOut();
 		}
 		return false;
 	}

@@ -8,7 +8,7 @@ public class IntakeCommand extends Command {
 
 	private boolean reverse;
 	private boolean timed;
-	private long finishTime;
+	private double duration;
 
 	public IntakeCommand(boolean reverse) {
 		requires(Robot.intake);
@@ -16,13 +16,15 @@ public class IntakeCommand extends Command {
 		this.timed = false;
 	}
 	
-	public IntakeCommand(boolean reverse, long duration) {
+	public IntakeCommand(boolean reverse, double duration) {
 		requires(Robot.intake);
-		finishTime = System.currentTimeMillis() + duration;
+		this.duration = duration;
 		timed = true;
 	}
 
 	protected void initialize() {
+		if(timed)
+			setTimeout(duration);
 	}
 
 	public void execute() {
@@ -33,8 +35,8 @@ public class IntakeCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		if(timed && System.currentTimeMillis() >= finishTime) {
-			return true;
+		if(timed) {
+			return isTimedOut();
 		}
 		return false;
 	}
