@@ -58,7 +58,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
-		autonomousCommand = (Command) chooser.getSelected();
+		autonomousCommand = new AutonomousGroup();// (Command)
+													// chooser.getSelected();
 		autonomousCommand.start();
 	}
 

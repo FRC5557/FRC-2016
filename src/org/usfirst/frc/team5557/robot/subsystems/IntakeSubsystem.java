@@ -19,16 +19,16 @@ public class IntakeSubsystem extends Subsystem {
 	}
 
 	public void setSpeed(double speed) {
-		left.set(-speed);
-		right.set(speed);
+		left.set(speed);
+		right.set(-speed);
 	}
 
 	public void forward() {
-		setSpeed(1);
+		setSpeed(.75);
 	}
 
 	public void reverse() {
-		setSpeed(-1);
+		setSpeed(-.75);
 	}
 
 	public void stop() {

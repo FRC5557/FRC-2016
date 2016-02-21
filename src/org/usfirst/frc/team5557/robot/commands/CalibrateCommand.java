@@ -15,7 +15,8 @@ public class CalibrateCommand extends Command {
 	}
 
 	public void execute() {
-		// updates the rest position of the robot to the x,y,z coordinates of the joystick
+		// updates the rest position of the robot to the x,y,z coordinates of
+		// the joystick
 		Robot.drive.setCalibration(OI.stick.getX(), OI.stick.getY(), OI.stick.getZ());
 	}
 

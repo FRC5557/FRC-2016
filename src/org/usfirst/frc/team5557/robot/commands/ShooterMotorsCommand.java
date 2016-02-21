@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ShooterMotorsCommand extends Command {
-	
+
 	private double duration;
 	private boolean timed;
 
@@ -17,7 +17,7 @@ public class ShooterMotorsCommand extends Command {
 		requires(Robot.shooter);
 		timed = false;
 	}
-	
+
 	public ShooterMotorsCommand(double duration) {
 		requires(Robot.shooter);
 		timed = true;
@@ -26,7 +26,7 @@ public class ShooterMotorsCommand extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if(timed) {
+		if (timed) {
 			setTimeout(duration);
 		}
 	}
@@ -38,7 +38,7 @@ public class ShooterMotorsCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(timed) {
+		if (timed) {
 			return isTimedOut();
 		}
 		return false;

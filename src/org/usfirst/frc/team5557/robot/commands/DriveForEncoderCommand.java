@@ -9,15 +9,18 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveForEncoderCommand extends Command {
 
-	private int encoderPosition;
+	private int distance;
+	private int encoderInitial;
 	private double magnitude;
 	private double direction;
 
-	public DriveForEncoderCommand(int encoderPosition, double magnitude, double direction) {
+	public DriveForEncoderCommand(int distance, double magnitude, double direction) {
 		requires(Robot.drive);
-		this.encoderPosition = encoderPosition;
+		this.distance = distance;
 		this.magnitude = magnitude;
 		this.direction = direction;
+		encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
+		Robot.drive.sensorTalon().clearIAccum();
 	}
 
 	// Called just before this Command runs the first time
@@ -31,7 +34,7 @@ public class DriveForEncoderCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.drive.sensorTalon().getPulseWidthPosition() >= encoderPosition) {
+		if (Math.abs(Robot.drive.sensorTalon().getPulseWidthPosition() - encoderInitial) >= distance) {
 			return true;
 		}
 		return false;

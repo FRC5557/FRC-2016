@@ -1,32 +1,21 @@
 package org.usfirst.frc.team5557.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class AutonomousGroup extends CommandGroup {
+/**
+ *
+ */
+public class ShootCommand extends CommandGroup {
 
-	public AutonomousGroup() {
+	public ShootCommand() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
 		// these will run in order.
-
-		// addSequential(new DriveForTimeCommand(15000, 0.5, 0.0));
-		addSequential(new DriveForEncoderCommand(10 * 4100, -.5, 0.0)); // Not
-																		// sure
-																		// if
-																		// this
-																		// will
-																		// work,
-																		// needs
-																		// testing
-																		// ...
-																		// ~Faraz
-		addSequential(new TurnCommand(450));
-		// Robot.drive.manualDrive(5, 60); //I have no idea if this will work
-		// ~Faraz
-		// just trying stuff out cuz i dont have a robot to test yet
-
-		// addSequential(new ShootCommand());
+		addParallel(new ShooterMotorsCommand(3.5));
+		addSequential(new WaitCommand(0.5));
+		addSequential(new IntakeCommand(true, 2));
 
 		// To run multiple commands at the same time,
 		// use addParallel()

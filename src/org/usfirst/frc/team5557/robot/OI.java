@@ -2,7 +2,7 @@ package org.usfirst.frc.team5557.robot;
 
 import org.usfirst.frc.team5557.robot.commands.CalibrateCommand;
 import org.usfirst.frc.team5557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team5557.robot.commands.KowabungaCommand;
+import org.usfirst.frc.team5557.robot.commands.ShootCommand;
 import org.usfirst.frc.team5557.robot.commands.ShooterMotorsCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -30,18 +30,20 @@ public class OI {
 	 * fire as fast as possible
 	 */
 
-	public static Button button5 = new JoystickButton(stick, 5);
+	public static Button button1 = new JoystickButton(stick, 1);
 	public static Button button2 = new JoystickButton(stick, 2);
 	public static Button button3 = new JoystickButton(stick, 3);
-	public static Button button1 = new JoystickButton(stick, 1);
+	public static Button button5 = new JoystickButton(stick, 5);
 	public static Button button11 = new JoystickButton(stick, 11);
+	public static Button button12 = new JoystickButton(stick, 12);
 
 	public OI() {
-		button3.whileHeld(new IntakeCommand(true)); // out
-		button5.whenPressed(new CalibrateCommand()); // calibrate
-		button2.whileHeld(new IntakeCommand(false)); // in
-		button1.whenPressed(new KowabungaCommand()); //shoot
-		button11.whileHeld(new ShooterMotorsCommand()); // spin shooter
+		button1.whenPressed(new ShootCommand()); // shoot
+		button2.whenPressed(new CalibrateCommand()); // calibrate
+		button5.whileHeld(new ShooterMotorsCommand()); // spin shooter
+		button11.whileHeld(new IntakeCommand(false)); // out
+		button12.whileHeld(new IntakeCommand(true)); // in
+
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

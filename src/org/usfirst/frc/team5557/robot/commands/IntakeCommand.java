@@ -15,7 +15,7 @@ public class IntakeCommand extends Command {
 		this.reverse = reverse;
 		this.timed = false;
 	}
-	
+
 	public IntakeCommand(boolean reverse, double duration) {
 		requires(Robot.intake);
 		this.duration = duration;
@@ -23,7 +23,7 @@ public class IntakeCommand extends Command {
 	}
 
 	protected void initialize() {
-		if(timed)
+		if (timed)
 			setTimeout(duration);
 	}
 
@@ -35,7 +35,7 @@ public class IntakeCommand extends Command {
 	}
 
 	protected boolean isFinished() {
-		if(timed) {
+		if (timed) {
 			return isTimedOut();
 		}
 		return false;
