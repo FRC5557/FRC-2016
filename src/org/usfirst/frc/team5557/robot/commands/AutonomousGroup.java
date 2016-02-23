@@ -16,9 +16,10 @@ public class AutonomousGroup extends CommandGroup {
 		// addSequential(new DriveForTimeCommand(150
 		//addSequential(new DriveForEncoderCommand(10.9 * 4100, -.35, 0.00001)); 
 
-		addSequential(new DriveForEncoderCommand(8 * 4100, -.35, 0.00001)); 
+		addSequential(new DriveForEncoderCommand(8 * 4100, -.43, 0.00001)); 
 		//addSequential(new TurnCommand(86.15));
-		addSequential(new TurnCommand(136));
+		addSequential(new TurnCommand(200));
+		addSequential(new DriveForEncoderCommand(.8 * 4100, .43, 0.00001)); 
 		addSequential(new ShootCommand());
 		
 
