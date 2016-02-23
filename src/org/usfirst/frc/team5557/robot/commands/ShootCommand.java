@@ -16,6 +16,7 @@ public class ShootCommand extends CommandGroup {
 		addParallel(new ShooterMotorsCommand(3.5));
 		addSequential(new WaitCommand(0.5));
 		addSequential(new IntakeCommand(true, 2));
+		
 
 		// To run multiple commands at the same time,
 		// use addParallel()

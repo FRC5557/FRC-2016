@@ -1,9 +1,6 @@
 package org.usfirst.frc.team5557.robot;
 
-import org.usfirst.frc.team5557.robot.commands.CalibrateCommand;
-import org.usfirst.frc.team5557.robot.commands.IntakeCommand;
-import org.usfirst.frc.team5557.robot.commands.ShootCommand;
-import org.usfirst.frc.team5557.robot.commands.ShooterMotorsCommand;
+import org.usfirst.frc.team5557.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -39,7 +36,7 @@ public class OI {
 
 	public OI() {
 		button1.whenPressed(new ShootCommand()); // shoot
-		button2.whenPressed(new CalibrateCommand()); // calibrate
+		button2.whenPressed(new StopShootingMotorsCommand()); // calibrate
 		button5.whileHeld(new ShooterMotorsCommand()); // spin shooter
 		button11.whileHeld(new IntakeCommand(false)); // out
 		button12.whileHeld(new IntakeCommand(true)); // in

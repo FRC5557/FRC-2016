@@ -9,22 +9,26 @@ public class IntakeCommand extends Command {
 	private boolean reverse;
 	private boolean timed;
 	private double duration;
-
+	public static boolean stop;
 	public IntakeCommand(boolean reverse) {
 		requires(Robot.intake);
 		this.reverse = reverse;
 		this.timed = false;
+		stop = false;
 	}
 
 	public IntakeCommand(boolean reverse, double duration) {
 		requires(Robot.intake);
 		this.duration = duration;
 		timed = true;
+		stop = false; 
 	}
+	
 
 	protected void initialize() {
 		if (timed)
 			setTimeout(duration);
+		stop = false; 
 	}
 
 	public void execute() {
@@ -38,6 +42,7 @@ public class IntakeCommand extends Command {
 		if (timed) {
 			return isTimedOut();
 		}
+		if(stop){ return true;} 
 		return false;
 	}
 

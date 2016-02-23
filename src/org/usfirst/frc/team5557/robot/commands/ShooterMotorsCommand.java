@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5557.robot.commands;
 
 import org.usfirst.frc.team5557.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,17 +10,20 @@ public class ShooterMotorsCommand extends Command {
 
 	private double duration;
 	private boolean timed;
+	public static boolean stop;
 
 	public ShooterMotorsCommand() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.shooter);
 		timed = false;
+		stop = false; 
 	}
 
 	public ShooterMotorsCommand(double duration) {
 		requires(Robot.shooter);
 		timed = true;
 		this.duration = duration;
+		stop = false; 
 	}
 
 	// Called just before this Command runs the first time
@@ -29,6 +31,7 @@ public class ShooterMotorsCommand extends Command {
 		if (timed) {
 			setTimeout(duration);
 		}
+		stop = false; 
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -41,6 +44,7 @@ public class ShooterMotorsCommand extends Command {
 		if (timed) {
 			return isTimedOut();
 		}
+		if(stop){ return true;} 
 		return false;
 	}
 
