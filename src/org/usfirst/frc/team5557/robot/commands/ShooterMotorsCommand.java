@@ -41,10 +41,10 @@ public class ShooterMotorsCommand extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		if(stop){ return true;} 
 		if (timed) {
 			return isTimedOut();
 		}
-		if(stop){ return true;} 
 		return false;
 	}
 

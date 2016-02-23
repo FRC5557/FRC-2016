@@ -39,10 +39,10 @@ public class IntakeCommand extends Command {
 	}
 
 	protected boolean isFinished() {
+		if(stop){ return true;} 
 		if (timed) {
 			return isTimedOut();
 		}
-		if(stop){ return true;} 
 		return false;
 	}
 
