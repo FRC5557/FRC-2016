@@ -82,7 +82,6 @@ public class TurnCommand extends Command {
 		requires(Robot.drive);
 		theta = angle;
 		encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
-		//SmartDashboard.putNumber("encodre init", encoderInitial);
 	}
 
 	// Called just before this Command runs the first time
@@ -93,7 +92,7 @@ public class TurnCommand extends Command {
 	protected void execute() {
 
 		//SmartDashboard.putNumber("execute", 4.4);
-		Robot.drive.manualDrive(-0.5, -0.5);
+		DriveSubsystem.manualDrive(-0.5, -0.5);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

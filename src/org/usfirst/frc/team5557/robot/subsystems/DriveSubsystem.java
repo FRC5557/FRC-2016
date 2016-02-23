@@ -120,17 +120,14 @@ public class DriveSubsystem extends Subsystem {
 	public CANTalon sensorTalon() {
 		return frontLeft;
 	}
-
+	
 	private double slowCoefficient() {
-		/*
 		if (voltage > 12) {
 			return 1;
 		} else {
 			return (RAMP_CONSTANT * Math.pow(RAMP_BASE, voltage));
 
 		}
-		*/
-		return 1.0;
 	}
 
 	public void stop() {
