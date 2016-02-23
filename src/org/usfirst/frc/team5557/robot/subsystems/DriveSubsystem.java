@@ -16,7 +16,7 @@ public class DriveSubsystem extends Subsystem {
 	private static CANTalon frontRight = new CANTalon(RobotMap.RIGHT_FRONT_MOTOR);
 	private static CANTalon rearRight = new CANTalon(RobotMap.RIGHT_REAR_MOTOR);
 	private static CANTalon rearLeft = new CANTalon(RobotMap.LEFT_REAR_MOTOR);
-	public static RobotDrive drive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
+	public static RobotDrive robotDrive = new RobotDrive(frontLeft, rearLeft, frontRight, rearRight);
 	
 	private double xCalib, yCalib, zCalib;
 	
@@ -31,24 +31,28 @@ public class DriveSubsystem extends Subsystem {
 
 	public DriveSubsystem() {
 		/*
-		 * drive.setInvertedMotor(MotorType.kFrontRight, true);
-		 * drive.setInvertedMotor(MotorType.kRearRight, true);
-		 * drive.setInvertedMotor(MotorType.kFrontLeft, true);
-		 * drive.setInvertedMotor(MotorType.kRearLeft, true);
+		 * robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		 * robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		 * robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		 * robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
 		 */
-		frontLeft.setVoltageRampRate(10);
-		frontRight.setVoltageRampRate(10);
-		rearRight.setVoltageRampRate(10);
-		rearLeft.setVoltageRampRate(10);
+		
+		/* Reset values */
+		frontLeft.setVoltageRampRate(32);
+		frontRight.setVoltageRampRate(32);
+		rearRight.setVoltageRampRate(32);
+		rearLeft.setVoltageRampRate(32);
+		sensorTalon().setPulseWidthPosition(0);
 	}
 
 	public RobotDrive getDrive() {
-		return drive;
+		return robotDrive;
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new JoystickDriveCommand());
 	}
+	
 
 	public void drive() {
 		// Setting calibration values
@@ -89,8 +93,18 @@ public class DriveSubsystem extends Subsystem {
 		SmartDashboard.putNumber("Minimum", minVoltage);
 		SmartDashboard.putNumber("Time Remaining", ds.getMatchTime());
 
-		drive.arcadeDrive(y * slowCoefficient(), -z * slowCoefficient());
-
+		robotDrive.arcadeDrive(y * slowCoefficient(), -z * slowCoefficient());
+		
+/*		if ((y <= 1) && (y >= .9)){
+			frontLeft.set(y * .995);
+			rearLeft.set(y * .995);
+		}
+		if ((y >= -1) && (y <= -.9)){
+			frontLeft.set(y * .995);
+			rearLeft.set(y * .995);
+		}
+		else{}
+*/
 	}
 
 	public void setCalibration(double x, double y, double z) {
@@ -99,8 +113,8 @@ public class DriveSubsystem extends Subsystem {
 		zCalib = z;
 	}
 
-	public void manualDrive(double magnitude, double direction) {
-		drive.drive(magnitude, direction);
+	public static void manualDrive(double magnitude, double direction) {
+		robotDrive.drive(magnitude, direction);
 	}
 
 	public CANTalon sensorTalon() {
@@ -108,15 +122,18 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	private double slowCoefficient() {
+		/*
 		if (voltage > 12) {
 			return 1;
 		} else {
 			return (RAMP_CONSTANT * Math.pow(RAMP_BASE, voltage));
 
 		}
+		*/
+		return 1.0;
 	}
 
 	public void stop() {
-		drive.drive(0, 0);
+		robotDrive.drive(0, 0);
 	}
 }

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5557.robot.commands;
+/*package org.usfirst.frc.team5557.robot.commands;
 
 import org.usfirst.frc.team5557.robot.Robot;
 import org.usfirst.frc.team5557.robot.subsystems.DriveSubsystem;
@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class TurnCommand extends Command {
 
-	private RobotDrive drive = DriveSubsystem.drive;
 	int theta;
 	int encoderInitial;
 	int time;
@@ -16,6 +15,7 @@ public class TurnCommand extends Command {
 	public TurnCommand(int degrees) {
 		theta = degrees;
 		encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
+		Robot.drive.sensorTalon().clearIAccum();
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class TurnCommand extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		drive.arcadeDrive(0, 1);
+		Robot.drive.manualDrive(0, 1);
 	}
 
 	@Override
@@ -60,4 +60,65 @@ public class TurnCommand extends Command {
 
 	}
 
+}
+*/
+
+package org.usfirst.frc.team5557.robot.commands;
+
+import org.usfirst.frc.team5557.robot.Robot;
+import org.usfirst.frc.team5557.robot.subsystems.DriveSubsystem;
+
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/**
+ *
+ */
+public class TurnCommand extends Command {
+	double theta;
+	public static int encoderInitial;
+
+	public TurnCommand(double angle) {
+		requires(Robot.drive);
+		theta = angle;
+		encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
+		//SmartDashboard.putNumber("encodre init", encoderInitial);
+	}
+
+	// Called just before this Command runs the first time
+	protected void initialize() {
+	}
+
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+
+		//SmartDashboard.putNumber("execute", 4.4);
+		Robot.drive.manualDrive(-0.5, -0.5);
+	}
+
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+
+		//SmartDashboard.putNumber("called", Robot.drive.sensorTalon().getPulseWidthPosition());
+
+		//SmartDashboard.putNumber("cutoff", (theta / 360.0) * 13440.0);
+		if (Math.abs(Robot.drive.sensorTalon().getPulseWidthPosition() - encoderInitial) >= (theta / 360.0) * 13440.0) {
+			DriveForEncoderCommand.encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
+			return true;
+		}
+		//SmartDashboard.putNumber("false", 4.4);
+		return false;
+	}
+	// Called once after isFinished returns true
+	protected void end() {
+
+		//SmartDashboard.putNumber("stopped", 0.0);
+		Robot.drive.stop();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

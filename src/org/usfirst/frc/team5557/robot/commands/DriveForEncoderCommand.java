@@ -9,12 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveForEncoderCommand extends Command {
 
-	private int distance;
-	private int encoderInitial;
+	private double distance;
+	public static int encoderInitial;
 	private double magnitude;
 	private double direction;
 
-	public DriveForEncoderCommand(int distance, double magnitude, double direction) {
+	public DriveForEncoderCommand(double distance, double magnitude, double direction) {
 		requires(Robot.drive);
 		this.distance = distance;
 		this.magnitude = magnitude;
@@ -30,11 +30,13 @@ public class DriveForEncoderCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		Robot.drive.manualDrive(magnitude, direction);
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (Math.abs(Robot.drive.sensorTalon().getPulseWidthPosition() - encoderInitial) >= distance) {
+			TurnCommand.encoderInitial = Robot.drive.sensorTalon().getPulseWidthPosition();
 			return true;
 		}
 		return false;
