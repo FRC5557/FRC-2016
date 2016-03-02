@@ -29,18 +29,21 @@ public class OI {
 
 	public static Button button1 = new JoystickButton(stick, 1);
 	public static Button button2 = new JoystickButton(stick, 2);
-	public static Button button3 = new JoystickButton(stick, 3);
 	public static Button button5 = new JoystickButton(stick, 5);
 	public static Button button11 = new JoystickButton(stick, 11);
 	public static Button button12 = new JoystickButton(stick, 12);
 
+	public static Button button4 = new JoystickButton(stick, 4);
+	public static Button button6 = new JoystickButton(stick, 6);
 	public OI() {
 		button1.whenPressed(new ShootCommand()); // shoot
 		button2.whenPressed(new StopShootingMotorsCommand()); // calibrate
 		button5.whileHeld(new ShooterMotorsCommand()); // spin shooter
 		button11.whileHeld(new IntakeCommand(false)); // out
 		button12.whileHeld(new IntakeCommand(true)); // in
-
+		
+		button4.whileHeld(new MoveArmCommand(.3));
+		button6.whileHeld(new MoveArmCommand(.3));
 	}
 
 	// There are a few additional built in buttons you can use. Additionally,

@@ -1,11 +1,8 @@
 
 package org.usfirst.frc.team5557.robot;
 
-import org.usfirst.frc.team5557.robot.commands.AutonomousGroup;
-import org.usfirst.frc.team5557.robot.commands.CalibrateCommand;
-import org.usfirst.frc.team5557.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team5557.robot.subsystems.IntakeSubsystem;
-import org.usfirst.frc.team5557.robot.subsystems.ShooterSubsystem;
+import org.usfirst.frc.team5557.robot.commands.*;
+import org.usfirst.frc.team5557.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveSubsystem drive = new DriveSubsystem();
 	public static final ShooterSubsystem shooter = new ShooterSubsystem();
 	public static final IntakeSubsystem intake = new IntakeSubsystem();
+	public static final ArmSubsystem arm = new ArmSubsystem();
 	public static final CalibrateCommand calibrateCommand = new CalibrateCommand();
 	public static OI oi;
 

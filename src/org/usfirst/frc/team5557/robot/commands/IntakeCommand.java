@@ -10,6 +10,7 @@ public class IntakeCommand extends Command {
 	private boolean timed;
 	private double duration;
 	public static boolean stop;
+	
 	public IntakeCommand(boolean reverse) {
 		requires(Robot.intake);
 		this.reverse = reverse;
